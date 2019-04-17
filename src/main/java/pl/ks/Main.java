@@ -17,6 +17,9 @@
 package pl.ks;
 
 import io.helidon.microprofile.server.Server;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.DefaultSecurityManager;
+import sun.security.krb5.Realm;
 
 import java.io.IOException;
 import java.util.logging.LogManager;
@@ -46,13 +49,14 @@ public final class Main {
 
     /**
      * Start the server.
-     *
+     *§
      * @return the created {@link Server} instance
      */
     static Server startServer() {
 //        final Security sec = Security.builder().addAuthorizationProvider(new AuthzProvider()).build();
 //        Routing.builder().register(WebSecurity.create(sec)).build();
 
+        SecurityUtils.setSecurityManager(new DefaultSecurityManager());
         // Server will automatically pick up configuration from
         // microprofile-config.properties
         // and Application classes annotated as @ApplicationScoped
